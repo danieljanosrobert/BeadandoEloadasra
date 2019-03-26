@@ -15,12 +15,18 @@ MongoClient.connect('mongodb://localhost:27017/blogposts', (err, client) => {
 app.use(cors())
 app.use(bodyParser.json())
 
-app.post('/', (req, res) => {
-    console.log(req.body)
-    db.collection('blogposts').insertOne(req.body, cucc => {
-        res.send(cucc)
+app.post('/post', (req, res) => {
+    db.collection('posts').insertOne(req.body, cucc => {
+        res.sendStatus(201)
     })
-    res.send('Britney!')
+})
+
+app.get('/', (req, res) => {
+    db.collection('posts').find({})
+        .toArray((err, result) => {
+        if (err) throw err;
+        res.send(result)
+    })
 })
 
 app.listen(8082)

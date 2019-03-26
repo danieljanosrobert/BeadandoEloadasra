@@ -22,7 +22,7 @@
 export default {
   name: 'App',
   data: () => ({
-
+    felhasznalo: ''
   }),
   methods: {
 
@@ -33,4 +33,7 @@ export default {
   body {
     margin-top: 60px;
   } 
+  .container80 {
+    max-width: 80% !important;
+  }
 </style>

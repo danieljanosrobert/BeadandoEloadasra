@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-md>
+  <v-container class = "container80" fluid grid-list-md>
     <v-layout row wrap align-center>
       <p> Új bejegyzés létrehozása</p>
       
@@ -10,8 +10,8 @@
           ></v-text-field>
         </v-flex>
       <v-flex md12 sm12 xs12> 
-        <v-textarea v-model="szoveg"
-          solo
+        <v-textarea class="mypre" v-model="szoveg"
+          regular
           name="input-7-4"
           label="Bejegyzés"
         ></v-textarea>
@@ -40,23 +40,42 @@
     updated() {
       this.canPost = (this.nev ==='' || this.szoveg==='')
     },
+    mounted() {
+      this.nev = this.$parent.felhasznalo
+    },
     methods: {
       postAPost() {
+        const toTwoDigits = num => num < 10 ? '0' + num : num
         let nev = this.nev
-        let szoveg = this.szoveg
-        this.axios.post('http://localhost:8082', {nev,szoveg})
-        .then( resp => {
+        let jsonized = JSON.stringify(this.szoveg)
+        let szoveg = JSON.parse(jsonized)
+        let date = new Date()
+        let idopont = date.getFullYear() +"."+
+         toTwoDigits(date.getUTCMonth()+1) +"."+
+         toTwoDigits(date.getDate()) + " "+
+         toTwoDigits(date.getHours()) +":"+
+         toTwoDigits(date.getMinutes()) +":"+
+         toTwoDigits(date.getSeconds())
+        this.axios.post('http://localhost:8082/post', {nev, szoveg, idopont})
+        .then(() => { 
+          this.$router.push('/')
         })
+        .catch(() => {
+        });
+      this.$parent.felhasznalo = nev
       }
     }
   }
 </script>
 
-<style>
+<style scoped>
   p {
     font-size: 2em;
   }
   label {
     color: red;
+  }
+  .mypre {
+    white-space: pre;
   }
 </style>
