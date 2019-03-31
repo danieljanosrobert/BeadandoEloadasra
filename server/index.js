@@ -22,7 +22,7 @@ app.post('/post', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-    db.collection('posts').find({})
+    db.collection('posts').find({}).sort({idopont: -1})
         .toArray((err, result) => {
         if (err) throw err;
         res.send(result)

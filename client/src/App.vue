@@ -2,7 +2,7 @@
   <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <router-link to="/"> <span>Blog </span>
+        <router-link to="Home"> <span>Blog </span>
         <span class="font-weight-light">BEADANDO</span>
         </router-link>
       </v-toolbar-title>
@@ -24,6 +24,9 @@ export default {
   data: () => ({
     felhasznalo: ''
   }),
+  created () {
+    this.$router.push('Home')
+  },
   methods: {
 
   }

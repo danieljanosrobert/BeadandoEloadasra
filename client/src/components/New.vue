@@ -6,7 +6,7 @@
       <v-flex md12 sm12 xs12>
           <v-text-field v-model="nev"
             label="Név"
-            solo
+            regular
           ></v-text-field>
         </v-flex>
       <v-flex md12 sm12 xs12> 
@@ -51,14 +51,14 @@
         let szoveg = JSON.parse(jsonized)
         let date = new Date()
         let idopont = date.getFullYear() +"."+
-         toTwoDigits(date.getUTCMonth()+1) +"."+
+         toTwoDigits(date.getUTCMonth()+2) +"."+
          toTwoDigits(date.getDate()) + " "+
          toTwoDigits(date.getHours()) +":"+
          toTwoDigits(date.getMinutes()) +":"+
          toTwoDigits(date.getSeconds())
         this.axios.post('http://localhost:8082/post', {nev, szoveg, idopont})
         .then(() => { 
-          this.$router.push('/')
+          /* this.$router.push('Home') */
         })
         .catch(() => {
         });

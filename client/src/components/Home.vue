@@ -1,9 +1,29 @@
-<template dark>
+<template>
   <v-container class="container80">
+    <v-dialog v-model="dialog" max-width="600px">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Hozzászólás</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+              <v-flex xs12>
+                <v-text-field label="Email*" required></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click="dialog = false">Mégse</v-btn>
+          <v-btn color="blue darken-1" flat @click="dialog = false">Küldés</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-timeline dense clipped>
-
       <v-timeline-item
-        v-for="(poszt, i) in reversedTimeline" :key="i"
+        v-for="(poszt, i) in posztok" :key="i"
         class="mb-3"
         v-bind:color="decorate(poszt.nev)"
         icon-color="grey lighten-2"
@@ -21,13 +41,12 @@
           <v-flex class="name" xs8>{{ poszt.nev }}</v-flex>
           <v-flex xs4 text-xs-right>{{ oraperc(poszt.idopont) }}</v-flex>
           <v-flex xs12>{{ poszt.szoveg }}</v-flex>
+          <template>
+            <v-btn color="primary" @click="dialog = true" flat small>Hozzászólás</v-btn>
+          </template>
         </v-layout>
       </v-timeline-item>
     </v-timeline>
-    <v-btn @click="asd()"
-      >
-        <span class="mr-2">Új bejegyzés</span>
-      </v-btn>
   </v-container>
 </template>
 
@@ -37,13 +56,10 @@
       name: 'Home',
       posztok: [],
       lastdate: '',
-      decoration: []
+      decoration: [],
+      precalc: 0,
+      dialog: false
     }),
-    computed: {
-      reversedTimeline () {
-        return this.posztok.slice().reverse()
-      }
-    },
     mounted () {
       this.axios.get('http://localhost:8082/')
         .then(result => {
@@ -58,6 +74,10 @@
         if(idopont === undefined)
           return false
         if(this.vm.lastdate !== this.datum(idopont)){
+          if (!this.vm.lastdate && this.precalc<this.posztok.length){
+            this.precalc++
+            return false
+          }
           this.vm.lastdate = this.datum(idopont)
           return true
         } else {
