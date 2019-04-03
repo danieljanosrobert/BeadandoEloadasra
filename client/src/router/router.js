@@ -13,9 +13,14 @@ export default new Router({
       component: Home
     },
     {
-        path: '/new',
-        name: 'New',
-        component: New
-      }
+      path: '/new',
+      name: 'New',
+      component: New
+    },
+    {
+      path: '/',
+      name: 'Home',
+      component: Home
+    }
   ]
 })
