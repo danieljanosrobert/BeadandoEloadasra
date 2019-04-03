@@ -8,7 +8,7 @@
       </v-flex>
       <v-flex md12 sm12 xs12>
         <v-textarea class="mypre" v-model="szoveg" regular name="input-7-4" label="Bejegyzés"></v-textarea>
-        <label v-if="canPost">Üres poszt nem küldhető!</label>
+        <label v-if="canPost">Üres hozzászólás nem küldhető!</label>
         <label v-else></label>
       </v-flex>
       <v-btn :disabled="canPost" @click="postAPost()">
