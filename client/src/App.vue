@@ -33,10 +33,9 @@ export default {
 <style>
 body {
   margin-top: 60px;
-  white-space: pre-wrap;
-  text-overflow: ellipsis;
 }
-.container80 {
+.container {
+  white-space: pre-wrap;
   max-width: 80% !important;
 }
 </style>

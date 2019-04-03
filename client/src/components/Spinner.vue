@@ -1,12 +1,10 @@
 <template>
 <div id="overlay">
-  <v-progress-circular
+  <v-progress-linear 
       class="progress"
-      :size="120"
-      :width="12"
-      color="blue darken-1"
-      indeterminate
-    ></v-progress-circular>
+      color="blue"
+      height="10"
+  :indeterminate="true"></v-progress-linear>
     </div>
 </template>
 
@@ -24,14 +22,8 @@ export default {
   height: 100%;
   width: 100%;
   z-index: 10;
-  background-color: rgba(0,0,0,0.5);}
+  background-color: rgba(255,255,255,0.8);}
 .progress{
-  position: fixed;
-  z-index: 999;
-  margin: auto;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  margin-top: -2px
 }
 </style>
